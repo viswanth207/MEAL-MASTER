@@ -256,7 +256,7 @@ app.patch('/updateliked', async (req, res) => {
     }
 });
 
-
+delete mongoose.models.meals;
 const Meal = mongoose.models.Meal || mongoose.model('meals', new mongoose.Schema({}, { strict: false }));
 
 app.post('/items', async (req, res) => {
