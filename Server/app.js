@@ -15,7 +15,7 @@ const userAuth = require("./middlewares/userAuth");
 const cors = require("cors");
 const app = express();
 app.use(cors({
-  origin: ["http://localhost:3000"],
+  origin: ["https://meal-master-mern-z7au.vercel.app"],
   credentials:true,
 }));
 app.use(express.json());
