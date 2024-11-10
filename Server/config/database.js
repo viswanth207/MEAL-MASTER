@@ -1,10 +1,16 @@
-const mongoose = require('mongoose');
-const express = require("express");
-const app = express();
-const connectDB = async () => {
-await mongoose.connect("mongodb://localhost:27017/mealmaster");
-    
+const mongoose = require("mongoose");
+
+const connectDB = () => {
+     
+    mongoose.connect(
+    "mongodb+srv://praveenudayagiri724:PRAVEEN@cluster0.lvusg.mongodb.net/mealmasterdb?retryWrites=true&w=majority&appName=Cluster0"
+)
+.then(() => {
+    console.log('MongoDB connected successfully');
+})
+.catch(err => {
+    console.error('Error connecting to MongoDB:', err);
+});
+
 };
 module.exports = connectDB;
-
-
