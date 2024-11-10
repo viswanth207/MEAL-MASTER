@@ -8,7 +8,7 @@ import './css/Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [gmail, setGmail] = useState("praveen@gmail.com");
+  const [gmail, setGmail] = useState("praveen@gmail.comn");
   const [password, setPassword] = useState("Praveen@123");
   const dispatch = useDispatch();
   const [error, setError] = useState("");
