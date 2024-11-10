@@ -257,58 +257,58 @@ app.patch('/updateliked', async (req, res) => {
 });
 
 
+const Meal = mongoose.models.Meal || mongoose.model('meals', new mongoose.Schema({}, { strict: false }));
 
-  const Meal = mongoose.model('meals', new mongoose.Schema({}, { strict: false }));
-  app.post('/items', async (req, res) => {
-    const { ingredients } = req.body; // Ingredients expected to be an array
-  
-    if (!Array.isArray(ingredients) || ingredients.length === 0) {
-      return res.status(400).json({ message: 'Please provide a valid list of ingredients' });
-    }
-  
-    try {
-      // MongoDB aggregation pipeline to match and rank recipes
-      const recipes = await Meal.aggregate([
-        {
-          // Create a field for matching ingredients only if `ingredients` is an array
-          $addFields: {
-            matchingCount: {
-              $cond: {
-                if: { $isArray: '$ingredients' }, // Check if ingredients is an array
-                then: {
-                  $size: {
-                    $filter: {
-                      input: '$ingredients',
-                      as: 'ingredient',
-                      cond: { $in: ['$$ingredient', ingredients] }
-                    }
+app.post('/items', async (req, res) => {
+  const { ingredients } = req.body; // Ingredients expected to be an array
+
+  if (!Array.isArray(ingredients) || ingredients.length === 0) {
+    return res.status(400).json({ message: 'Please provide a valid list of ingredients' });
+  }
+
+  try {
+    // MongoDB aggregation pipeline to match and rank recipes
+    const recipes = await Meal.aggregate([
+      {
+        // Create a field for matching ingredients only if `ingredients` is an array
+        $addFields: {
+          matchingCount: {
+            $cond: {
+              if: { $isArray: '$ingredients' }, // Check if ingredients is an array
+              then: {
+                $size: {
+                  $filter: {
+                    input: '$ingredients',
+                    as: 'ingredient',
+                    cond: { $in: ['$$ingredient', ingredients] }
                   }
-                },
-                else: 0 // If ingredients is not an array, set matchingCount to 0
-              }
+                }
+              },
+              else: 0 // If ingredients is not an array, set matchingCount to 0
             }
           }
-        },
-        {
-          // Filter out recipes that have no matching ingredients
-          $match: {
-            matchingCount: { $gt: 0 }
-          }
-        },
-        {
-          // Sort recipes by the number of matching ingredients in descending order
-          $sort: { matchingCount: -1 }
         }
-      ]);
-  
-      // Send the ranked recipes as response
-      res.status(200).json(recipes);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server error' });
-    }
-  });
-  
+      },
+      {
+        // Filter out recipes that have no matching ingredients
+        $match: {
+          matchingCount: { $gt: 0 }
+        }
+      },
+      {
+        // Sort recipes by the number of matching ingredients in descending order
+        $sort: { matchingCount: -1 }
+      }
+    ]);
+
+    // Send the ranked recipes as response
+    res.status(200).json(recipes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 
 
