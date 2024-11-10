@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const { MongoClient } = require("mongodb"); 
-const url = MongoClient; 
+const url = "mongodb+srv://praveenudayagiri724:PRAVEEN@cluster0.lvusg.mongodb.net/mealmasterdb?retryWrites=true&w=majority&appName=Cluster0"; 
 const dbName = "mealmaster"; 
 let db;
 const mongoose = require('mongoose');
