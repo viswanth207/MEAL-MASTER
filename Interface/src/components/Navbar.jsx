@@ -22,7 +22,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="logo">
         <img src={logo} alt="Logo" />
-        <span className="owner-text">Owned by Praveen</span>
+        <span className="owner-text">Owned by PRAVEEN UDAYAGIRI</span>
       </div>
 
       {/* Links */}
