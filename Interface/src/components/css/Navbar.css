@@ -11,6 +11,12 @@
   width: 150px; /* Change this value to the desired width */
   height: auto; /* Maintain aspect ratio */
 }
+.owner-text {
+  font-size: 14px;
+  color: white;
+  margin-left: 10px;
+  font-style: italic;
+}
 
 /* Navigation Links */
 .nav-links {
