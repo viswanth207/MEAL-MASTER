@@ -4,28 +4,25 @@ import logo from '../assets/images/logo.png';
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   const handleLogout = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Adjust the path as needed
-
-    // Redirect to the login page or home page
-    window.location.href = '/login';
+    window.location.href = '/login'; // Redirect to the login page or home page
     console.log("Logout clicked");
   };
 
   const handleLiked = () => {
-    // Navigate to liked items
-    window.location.href = '/liked';
+    window.location.href = '/liked'; // Navigate to liked items
     console.log("Liked clicked");
   };
-  
 
   return (
     <nav className="navbar">
       {/* Logo */}
       <div className="logo">
         <img src={logo} alt="Logo" />
+        <span className="owner-text">Owned by Praveen</span>
       </div>
 
       {/* Links */}
