@@ -1,1 +1,1 @@
-export const BASE_URL = "https://meal-master-mern.vercel.app";
+export const BASE_URL = "https://meal-master-k8dc.vercel.app";
